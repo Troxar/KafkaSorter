@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 
-namespace FileGeneratorConsoleApp
+namespace FileGeneratorConsoleApp.GeneratorLib
 {
     internal class DictionariesReader
     {

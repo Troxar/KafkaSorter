@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FileGeneratorConsoleApp
+namespace FileGeneratorConsoleApp.GeneratorLib
 {
     internal class FileGenerator
     {
@@ -30,16 +30,11 @@ namespace FileGeneratorConsoleApp
             }
 
             Task.WaitAll();
-            
-            for (int i = 0; i < _config.TasksCount; i++)
-            {
-                Console.WriteLine($"Task[{i}] generated {tasks[i].Result} lines");
-            }
         }
         
         private int PopulateFile()
         {
-            var random = new Random();
+            var random = new Random(Guid.NewGuid().GetHashCode());
             var maxValue = _config.NumberMaxValue + 1;
             var sb = new StringBuilder();
             var fileInfo = new FileInfo(_config.ResultFilePath);

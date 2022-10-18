@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FileGeneratorConsoleApp
+namespace FileGeneratorConsoleApp.GeneratorLib
 {
     internal class NoWordsException : ApplicationException
     {

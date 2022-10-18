@@ -1,4 +1,4 @@
-﻿namespace FileGeneratorConsoleApp
+﻿namespace FileGeneratorConsoleApp.GeneratorLib
 {
     internal class FileGeneratorConfig
     {
@@ -9,11 +9,6 @@
         internal int TasksCount { get; }
         internal string ResultFilePath { get; }
         internal long ResultFileSize { get; }
-
-        private FileGeneratorConfig()
-        {
-            
-        }
 
         internal FileGeneratorConfig(int numberMinValue, int numberMaxValue, string[] words, 
             int portion, int tasksCount, string resultFilePath, long resultFileSize)
