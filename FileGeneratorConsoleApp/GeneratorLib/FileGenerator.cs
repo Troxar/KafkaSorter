@@ -23,22 +23,21 @@ namespace FileGeneratorConsoleApp.GeneratorLib
                 throw new NoWordsException("No words to generate file");
             }
             
-            var tasks = new Task<int>[_config.TasksCount];
+            var tasks = new Task[_config.TasksCount];
             for (int i = 0; i < _config.TasksCount; i++)
             {
                 tasks[i] = Task.Run(PopulateFile, token);
             }
 
-            Task.WaitAll();
+            Task.WaitAll(tasks);
         }
         
-        private int PopulateFile()
+        private void PopulateFile()
         {
             var random = new Random(Guid.NewGuid().GetHashCode());
             var maxValue = _config.NumberMaxValue + 1;
             var sb = new StringBuilder();
             var fileInfo = new FileInfo(_config.ResultFilePath);
-            int genCount = 0;
 
             while (IsLineCanBeAdded(fileInfo))
             {
@@ -47,7 +46,6 @@ namespace FileGeneratorConsoleApp.GeneratorLib
                     var line = GenerateLine(random.Next(_config.NumberMinValue, maxValue),
                         _config.Words[random.Next(_config.Words.Length)]);
                     sb.AppendLine(line);
-                    genCount++;
                 }
 
                 lock (_lock)
@@ -57,9 +55,9 @@ namespace FileGeneratorConsoleApp.GeneratorLib
                         File.AppendAllText(_config.ResultFilePath, sb.ToString());
                     }    
                 }
+                
+                sb.Clear();
             }
-
-            return genCount;
         }
 
         private bool IsLineCanBeAdded(FileInfo fileInfo)
